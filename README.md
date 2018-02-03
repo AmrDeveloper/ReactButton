@@ -16,9 +16,8 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-   dependencies {
-	  compile 'com.github.AmrDeveloper:ReactButton:0.1.0'
-   }  
+       compile 'com.github.AmrDeveloper:ReactButton:0.1.0'
+
             
 
 Default Case :
