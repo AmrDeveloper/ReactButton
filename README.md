@@ -2,7 +2,25 @@
 Android Library By Java to Create ReactButton with 6 Emoji Face 
 
 Description :
+
+Add ReactButton To Your Current Project :
+
+Add it in your root build.gradle at the end of repositories
     
+    allprojects {
+        repositories {
+			maven { url 'https://jitpack.io' }
+		}
+	}
+    
+             
+Add the dependency      
+
+   dependencies {
+	  compile 'com.github.AmrDeveloper:ReactButton:0.1.0'
+   }  
+            
+
 Default Case :
 
            Text = Like 
