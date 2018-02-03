@@ -80,7 +80,7 @@ public class ReactButton extends Button
         //If State is true , dislike The Button And Return To Default State
         if(reactState){
             reactState = false;
-            emojiType = ReactConstance.DEFAULT;
+            emojiType = ReactConstance.DEFAULT_TEXT;
             reactButton.setText(ReactConstance.LIKE_TEXT);
             reactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
             reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
