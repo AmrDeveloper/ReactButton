@@ -222,10 +222,10 @@ public class ReactButton extends Button{
         super.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //The Developer OnClick Code
-                currentListener.onClick(view);
                 //The Library OnClick
                 onClickLikeAndDisLike();
+                //The Developer OnClick Code
+                currentListener.onClick(view);
             }
         });
     }
@@ -238,10 +238,10 @@ public class ReactButton extends Button{
         super.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                //Developer Current Code
-                currentLongClick.onLongClick(view);
                 //Library OnClick Code
                 onLongClickDialog();
+                //Developer Current Code
+                currentLongClick.onLongClick(view);
                 return true;
             }
         });
