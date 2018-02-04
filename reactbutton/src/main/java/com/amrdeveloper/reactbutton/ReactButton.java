@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 @SuppressLint("AppCompatCustomView")
-public class ReactButton extends Button
-                         implements View.OnClickListener ,
-                                    View.OnLongClickListener{
+public class ReactButton extends Button{
+
 
     private AlertDialog alertDialog;
     //Current React Button
@@ -43,24 +43,18 @@ public class ReactButton extends Button
 
     public ReactButton(Context context) {
         super(context);
-        this.setOnClickListener(this);
-        this.setOnLongClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(ReactConstance.LIKE_TEXT);
     }
 
     public ReactButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setOnClickListener(this);
-        this.setOnLongClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(ReactConstance.LIKE_TEXT);
     }
 
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.setOnClickListener(this);
-        this.setOnLongClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(ReactConstance.LIKE_TEXT);
     }
@@ -68,19 +62,17 @@ public class ReactButton extends Button
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        this.setOnClickListener(this);
-        this.setOnLongClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(ReactConstance.LIKE_TEXT);
     }
 
-    @Override
-    public void onClick(View view) {
+    //Method To Make Button Like if it default and dislike if state is true
+    private void onClickLikeAndDisLike(){
         //Code When User Click On Button
         //If State is true , dislike The Button And Return To Default State
         if(reactState){
             reactState = false;
-            emojiType = ReactConstance.DEFAULT_TEXT;
+            emojiType = ReactConstance.DEFAULT;
             reactButton.setText(ReactConstance.LIKE_TEXT);
             reactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
             reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
@@ -95,8 +87,8 @@ public class ReactButton extends Button
         }
     }
 
-    @Override
-    public boolean onLongClick(View view) {
+    //Method To Show Emoji Dialog When User Click Long
+    private void onLongClickDialog(){
         //Code When User Click Long on Button
         //Show Dialog With 6 Emoji
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
@@ -119,7 +111,6 @@ public class ReactButton extends Button
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
         alertDialog.show();
-        return true;
     }
 
     //Initializing Every TextView Using id and View Object
@@ -221,5 +212,38 @@ public class ReactButton extends Button
     //Return Type Of Current Emoji
     public String getCurrentEmojiType(){
         return emojiType;
+    }
+
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener onClickListener) {
+        //Get Current Listener
+        final OnClickListener  currentListener = onClickListener;
+        //Using new OnClick To Merge Library OnClick With Developer OnClick
+        super.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //The Developer OnClick Code
+                currentListener.onClick(view);
+                //The Library OnClick
+                onClickLikeAndDisLike();
+            }
+        });
+    }
+
+    @Override
+    public void setOnLongClickListener(@Nullable OnLongClickListener onLongClickListener) {
+        //Get Current On Long Click on Final Object
+        final OnLongClickListener currentLongClick = onLongClickListener;
+        //Initializing new OnClick To Merge Two OnClick Method
+        super.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //Developer Current Code
+                currentLongClick.onLongClick(view);
+                //Library OnClick Code
+                onLongClickDialog();
+                return true;
+            }
+        });
     }
 }
