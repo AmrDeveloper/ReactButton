@@ -16,16 +16,16 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-       compile 'com.github.AmrDeveloper:ReactButton:1.0.1'
+    compile 'com.github.AmrDeveloper:ReactButton:1.0.1'
 
             
 
 Default Case :
 
-           Text = Like 
-           Emoji is black Hand
-           If User Click on Button it Text Will still like but emoji will be blue hand
-           and if user click long on button it will show dialog to choose one emoji from 6 emojis
+    Text = Like 
+    Emoji is black Hand
+    If User Click on Button it Text Will still like but emoji will be blue hand
+    and if user click long on button it will show dialog to choose one emoji from 6 emojis
 
 How To Initializing ReactButton :
 
@@ -70,9 +70,28 @@ switch(currentEmoji)
 }
 ```
 
+Set On Click Listener :
 
+  ```java
+  reactButton.setReactClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Your Code
+            }
+   });
+   ```
 
+Set on Long Click Listener :
 
+ ```java
+  reactButton.setReactDismissListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                //Your Code
+                return false;
+            }
+  });
+  ```
 
 
 
