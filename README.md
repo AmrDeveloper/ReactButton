@@ -16,10 +16,9 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-    compile 'com.github.AmrDeveloper:ReactButton:1.0.1'
+    compile 'com.github.AmrDeveloper:ReactButton:1.0.2'
 
             
-
 Default Case :
 
     Text = Like 
