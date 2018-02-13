@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +16,9 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 @SuppressLint("AppCompatCustomView")
-public class ReactButton extends Button{
+public class ReactButton extends Button implements View.OnClickListener , View.OnLongClickListener{
 
-    //Alert Dialog To Show Emoji Layout
+    //Alert Dialog To Show Emojis
     private AlertDialog alertDialog;
     //Current React Button
     private Button reactButton = this;
@@ -31,11 +31,15 @@ public class ReactButton extends Button{
     private ImageButton wowFace;
     private ImageButton sadFace;
     private ImageButton angryFace;
+    //User onCLick Implementation
+    private OnClickListener onClickListener;
+    //User onLongCLick Implementation
+    private OnLongClickListener onDismissListener;
 
     //Check React Button State
     private boolean reactState = false;
     //Return Type Of Current Emoji
-    private String emojiType = DEFAULT;
+    private String emojiType = "Default";
 
     //Emojis Type as String
     public static final String DEFAULT = "Default";
@@ -53,35 +57,34 @@ public class ReactButton extends Button{
         super(context);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(LIKE);
+        reactButton.setOnClickListener(this);
+        reactButton.setOnLongClickListener(this);
     }
 
     public ReactButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(LIKE);
+        reactButton.setOnClickListener(this);
+        reactButton.setOnLongClickListener(this);
     }
 
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        reactButton.setOnClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(LIKE);
+        reactButton.setOnClickListener(this);
+        reactButton.setOnLongClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
-        reactButton.setText(LIKE);
-    }
-
-    //Initializing Every TextView Using id and View Object
-    private void initializingTextViews(View currentView){
-        likeFace = (ImageButton) currentView.findViewById(R.id.likeFace);
-        loveFace = (ImageButton) currentView.findViewById(R.id.loveFace);
-        smileFace = (ImageButton) currentView.findViewById(R.id.smileFace);
-        wowFace = (ImageButton) currentView.findViewById(R.id.wowFace);
-        sadFace = (ImageButton) currentView.findViewById(R.id.sadFace);
-        angryFace = (ImageButton) currentView.findViewById(R.id.angryFace);
+        reactButton.setText(layoutColor);
+        reactButton.setOnClickListener(this);
+        reactButton.setOnLongClickListener(this);
     }
 
     //Method To Make Button Like if it default and dislike if state is true
@@ -93,6 +96,42 @@ public class ReactButton extends Button{
         } else {
             reactButtonLikeState();
         }
+    }
+
+    //Method To Show Emoji Dialog When User Click Long
+    private void onLongClickDialog(){
+        //Code When User Click Long on Button
+        //Show Dialog With 6 Emoji
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+
+        //Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.emojis_dialog, null);
+
+        //Initializing LinearLayout For Emojis and Change Attributes
+        emojiLayout = dialogView.findViewById(R.id.emojiLayout);
+        emojiLayout.setBackgroundColor(layoutColor);
+
+        initializingTextViews(dialogView);
+        onClickTextViews();
+
+        dialogBuilder.setView(dialogView);
+        alertDialog = dialogBuilder.create();
+
+        Window window = alertDialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        alertDialog.show();
+    }
+
+    //Initializing Every TextView Using id and View Object
+    private void initializingTextViews(View currentView){
+        likeFace = (ImageButton) currentView.findViewById(R.id.likeFace);
+        loveFace = (ImageButton) currentView.findViewById(R.id.loveFace);
+        smileFace = (ImageButton) currentView.findViewById(R.id.smileFace);
+        wowFace = (ImageButton) currentView.findViewById(R.id.wowFace);
+        sadFace = (ImageButton) currentView.findViewById(R.id.sadFace);
+        angryFace = (ImageButton) currentView.findViewById(R.id.angryFace);
     }
 
     //Set OnClick Method For Every TextView
@@ -151,36 +190,15 @@ public class ReactButton extends Button{
 
     }
 
-    //Method To Show Emoji Dialog When User Click Long
-    private void onLongClickDialog(){
-        //Code When User Click Long on Button
-        //Show Dialog With 6 Emoji
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-
-        //Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.emojis_dialog, null);
-
-        //Initializing LinearLayout For Emojis and Change Attributes
-        emojiLayout = dialogView.findViewById(R.id.emojiLayout);
-        emojiLayout.setBackgroundColor(layoutColor);
-
-        initializingTextViews(dialogView);
-        onClickTextViews();
-
-        dialogBuilder.setView(dialogView);
-        alertDialog = dialogBuilder.create();
-
-        Window window = alertDialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
-        alertDialog.show();
-    }
-
     //Set Custom Color For Emoji Dialog
-    public void setDialogBackgroundColor(int color){
+    public void dialogBackgroundColor(int color){
         //Set Color For EmojiDialog
         this.layoutColor = color;
+    }
+
+    //Return Type Of Current Emoji
+    public String getCurrentEmojiType(){
+        return emojiType;
     }
 
     //Set The Current Emoji Text And Reaction
@@ -214,11 +232,6 @@ public class ReactButton extends Button{
                 reactButtonAngryState();
                 break;
         }
-    }
-
-    //Return Type Of Current Emoji
-    public String getCurrentEmojiType(){
-        return emojiType;
     }
 
     //Private Method to Change Button state and set Reaction
@@ -285,36 +298,43 @@ public class ReactButton extends Button{
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_angry,0,0,0);
     }
 
-    @Override
-    public void setOnClickListener(@Nullable OnClickListener onClickListener) {
-        //Get Current Listener
-        final OnClickListener  currentListener = onClickListener;
-        //Using new OnClick To Merge Library OnClick With Developer OnClick
-        super.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //The Developer OnClick Code
-                currentListener.onClick(view);
-                //The Library OnClick
-                onClickLikeAndDisLike();
-            }
-        });
+
+    //Get ReactButton OnClick From User
+    public void setReactClickListener(OnClickListener onClickListener){
+        this.onClickListener = onClickListener;
+    }
+
+    //Get ReactButton OnLongClick From User
+    public void setReactDismissListener(OnLongClickListener onDismisslListener){
+        this.onDismissListener = onDismisslListener;
     }
 
     @Override
-    public void setOnLongClickListener(@Nullable OnLongClickListener onLongClickListener) {
-        //Get Current On Long Click on Final Object
-        final OnLongClickListener currentLongClick = onLongClickListener;
-        //Initializing new OnClick To Merge Two OnClick Method
-        super.setOnLongClickListener(new OnLongClickListener() {
+    public void onClick(View view) {
+        //The Library OnClick
+        onClickLikeAndDisLike();
+        //If User Set OnClick Using it After Native Library OnClick
+        if(onClickListener != null){
+            onClickListener.onClick(view);
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        final View currentView = view;
+        //First Using My Native OnLongClick
+        onLongClickDialog();
+        //Implement on Dismiss Listener to call Developer Method
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public boolean onLongClick(View view) {
-                //Developer Current Code
-                currentLongClick.onLongClick(view);
-                //Library OnClick Code
-                onLongClickDialog();
-                return true;
+            public void onDismiss(DialogInterface dialogInterface) {
+                if(onDismissListener != null)
+                {
+                    //User OnLongClick Implementation
+                    onDismissListener.onLongClick(currentView);
+                }
             }
         });
+        return true;
     }
 }
