@@ -8,15 +8,6 @@ import android.graphics.Color;
 
 public class ReactConstance {
 
-    //ReactButton Text
-    public final static String DEFAULT_TEXT = "Default";
-    public final static String LIKE_TEXT = "Like";
-    public final static String LOVE_TEXT = "Love";
-    public final static String SMILE_TEXT = "Smile";
-    public final static String WOW_TEXT = "Wow";
-    public final static String SAD_TEXT = "Sad";
-    public final static String ANGRY_TEXT = "Angry";
-
     //Color Constance
     public final static String BLUE  = "#0366d6";
     public final static String RED_LOVE  = "#f0716b";
