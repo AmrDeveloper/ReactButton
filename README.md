@@ -16,8 +16,7 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-    compile 'com.github.AmrDeveloper:ReactButton:1.0.2'
-
+    compile 'com.github.AmrDeveloper:ReactButton:1.0.4'
             
 Default Case :
 
@@ -32,6 +31,21 @@ How To Initializing ReactButton :
 ReactButton reactButton = findViewById(R.id.buttonId);
 ```
 
+Set Emoji Type on Button :
+
+```java
+   reactButton.setCurrentEmojiType(String emojiType);
+   
+   Types : 
+   ReactButton.DEFAULT
+   ReactButton.LIKE
+   ReactButton.LOVE
+   ReactButton.SMILE
+   ReactButton.WOW
+   ReactButton.SAD
+   ReactButton.ANGRY
+```
+
 To Get Current Emoji On Button :
 
 ```java
@@ -39,27 +53,27 @@ String currentEmoji = reactButton.getCurrentEmojiType();
 
 switch(currentEmoji)
 {
-   case "Like":
+   case ReactButton.LIKE:
        //Text Is Like , Emoji Is Blue Hand
        break;
        
-   case "Love":
+   case ReactButton.LOVE:
        //Text Is Like , Emoji Is Red Heart
        break;
        
-   case "Smile":
+   case ReactButton.SMILE:
         //Text Is Smile , Emoji Is Smile Hand
        break;
        
-   case "Wow":
+   case ReactButton.WOW:
        //Text Is Wow , Emoji Is Wow Face
        break;
        
-   case "Sad":
+   case ReactButton.SAD:
        //Text Is Sad , Emoji Is Dark Hand
        break;
        
-   case "Angry":
+   case ReactButton.ANGRY:
        //Text Is Angry , Emoji Is Angry Face
        break; 
        
