@@ -71,7 +71,6 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
 
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        reactButton.setOnClickListener(this);
         reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
         reactButton.setText(LIKE);
         reactButton.setOnClickListener(this);
