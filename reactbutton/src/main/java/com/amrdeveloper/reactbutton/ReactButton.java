@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -16,32 +17,31 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 @SuppressLint("AppCompatCustomView")
-public class ReactButton extends Button implements View.OnClickListener , View.OnLongClickListener{
+public class ReactButton extends Button implements View.OnClickListener, View.OnLongClickListener {
 
-    //Alert Dialog To Show Emojis
-    private AlertDialog alertDialog;
-    //Current React Button
-    private Button reactButton = this;
-    //Layout Of Emojis
-    private LinearLayout emojiLayout;
-    //Emojis ImageButtons
+    /**
+     * ReactButton custom view object to make easy to change attribute
+     */
+    private ReactButton mReactButton = this;
+
+    /**
+     * Emoji Alert Dialog to show emoji layout with 6 emoji faces
+     */
+    private AlertDialog emojisAlertDialog;
+
+    /**
+     * ImageButton Object for every emoji face
+     */
     private ImageButton likeFace;
     private ImageButton loveFace;
     private ImageButton smileFace;
     private ImageButton wowFace;
     private ImageButton sadFace;
     private ImageButton angryFace;
-    //User onCLick Implementation
-    private OnClickListener onClickListener;
-    //User onLongCLick Implementation
-    private OnLongClickListener onDismissListener;
 
-    //Check React Button State
-    private boolean reactState = false;
-    //Return Type Of Current Emoji
-    private String emojiType = "Default";
-
-    //Emojis Type as String
+    /**
+     * Type of every emoji as String
+     */
     public static final String DEFAULT = "Default";
     public static final String LIKE = "Like";
     public static final String LOVE = "Love";
@@ -50,97 +50,116 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
     public static final String SAD = "Sad";
     public static final String ANGRY = "Angry";
 
-    //Default Emoji Dialog Color and Developer can change it using Method
-    private int layoutColor = 0xfff;
+    /**
+     * react current state as boolean variable
+     * is false in default state and true in all other states
+     */
+    private boolean reactState = false;
+
+    /**
+     * String variable to save current Emoji Type
+     * default type is 'Default'
+     */
+    private String currentEmojiType = "Default";
+
+    /**
+     * Integer variable to change Emoji Dialog layout color
+     * Default value is White Color and change using public method by developer
+     */
+    private int emojiDialogColor = Color.WHITE;
+
+    /**
+     * onClickListener interface implementation object
+     */
+    private OnClickListener onClickListener;
+
+    /**
+     * OnLongClickListener interface implementation object
+     */
+    private OnLongClickListener onDismissListener;
 
     public ReactButton(Context context) {
         super(context);
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
-        reactButton.setText(LIKE);
-        reactButton.setOnClickListener(this);
-        reactButton.setOnLongClickListener(this);
+        reactButtonDefaultSetting();
     }
 
     public ReactButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
-        reactButton.setText(LIKE);
-        reactButton.setOnClickListener(this);
-        reactButton.setOnLongClickListener(this);
+        reactButtonDefaultSetting();
     }
 
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
-        reactButton.setText(LIKE);
-        reactButton.setOnClickListener(this);
-        reactButton.setOnLongClickListener(this);
+        reactButtonDefaultSetting();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ReactButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
-        reactButton.setText(layoutColor);
-        reactButton.setOnClickListener(this);
-        reactButton.setOnLongClickListener(this);
+        reactButtonDefaultSetting();
     }
 
     //Method To Make Button Like if it default and dislike if state is true
-    private void onClickLikeAndDisLike(){
+    private void onClickLikeAndDisLike() {
         //Code When User Click On Button
         //If State is true , dislike The Button And Return To Default State
-        if(reactState){
+        if (reactState) {
             reactButtonDefaultState();
         } else {
             reactButtonLikeState();
         }
     }
 
-    //Method To Show Emoji Dialog When User Click Long
-    private void onLongClickDialog(){
+    /**
+     * Show emoji dialog when user long click on react button
+     */
+    private void onLongClickDialog() {
         //Code When User Click Long on Button
         //Show Dialog With 6 Emoji
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
 
         //Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.emojis_dialog, null);
 
         //Initializing LinearLayout For Emojis and Change Attributes
-        emojiLayout = dialogView.findViewById(R.id.emojiLayout);
-        emojiLayout.setBackgroundColor(layoutColor);
+        LinearLayout emojiLayout = dialogView.findViewById(R.id.emojiLayout);
+        emojiLayout.setBackgroundColor(emojiDialogColor);
 
         initializingTextViews(dialogView);
-        onClickTextViews();
+        onClickImageButtons();
 
         dialogBuilder.setView(dialogView);
-        alertDialog = dialogBuilder.create();
+        emojisAlertDialog = dialogBuilder.create();
 
-        Window window = alertDialog.getWindow();
+        Window window = emojisAlertDialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
-        alertDialog.show();
+        emojisAlertDialog.show();
     }
 
-    //Initializing Every TextView Using id and View Object
-    private void initializingTextViews(View currentView){
-        likeFace = (ImageButton) currentView.findViewById(R.id.likeFace);
-        loveFace = (ImageButton) currentView.findViewById(R.id.loveFace);
-        smileFace = (ImageButton) currentView.findViewById(R.id.smileFace);
-        wowFace = (ImageButton) currentView.findViewById(R.id.wowFace);
-        sadFace = (ImageButton) currentView.findViewById(R.id.sadFace);
-        angryFace = (ImageButton) currentView.findViewById(R.id.angryFace);
+    /**
+     * @param currentView : get current View
+     *                    and using id to initializing ImageButtons Using id and View Object
+     */
+    private void initializingTextViews(View currentView) {
+        likeFace = currentView.findViewById(R.id.likeFace);
+        loveFace = currentView.findViewById(R.id.loveFace);
+        smileFace = currentView.findViewById(R.id.smileFace);
+        wowFace = currentView.findViewById(R.id.wowFace);
+        sadFace = currentView.findViewById(R.id.sadFace);
+        angryFace = currentView.findViewById(R.id.angryFace);
     }
 
-    //Set OnClick Method For Every TextView
-    private void onClickTextViews(){
-
+    /**
+     * Set onClickListener For every Image Buttons on Emoji Dialog
+     */
+    private void onClickImageButtons() {
         likeFace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 reactButtonLikeState();
-                alertDialog.dismiss();
+                emojisAlertDialog.dismiss();
             }
         });
 
@@ -148,17 +167,15 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
             @Override
             public void onClick(View view) {
                 reactButtonLoveState();
-                alertDialog.dismiss();
+                emojisAlertDialog.dismiss();
             }
         });
-
 
         smileFace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 reactButtonSmileState();
-                alertDialog.dismiss();
-
+                emojisAlertDialog.dismiss();
             }
         });
 
@@ -166,16 +183,15 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
             @Override
             public void onClick(View view) {
                 reactButtonWowState();
-                alertDialog.dismiss();
+                emojisAlertDialog.dismiss();
             }
         });
-
 
         sadFace.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 reactButtonSadState();
-                alertDialog.dismiss();
+                emojisAlertDialog.dismiss();
             }
         });
 
@@ -183,129 +199,160 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
             @Override
             public void onClick(View view) {
                 reactButtonAngryState();
-                alertDialog.dismiss();
+                emojisAlertDialog.dismiss();
             }
         });
-
     }
 
-    //Set Custom Color For Emoji Dialog
-    public void dialogBackgroundColor(int color){
+    /**
+     * @param color : Get Color Value from user and set it for dialog background
+     */
+    public void setDialogBackgroundColor(int color) {
         //Set Color For EmojiDialog
-        this.layoutColor = color;
+        this.emojiDialogColor = color;
     }
 
-    //Return Type Of Current Emoji
-    public String getCurrentEmojiType(){
-        return emojiType;
+    /**
+     * @return : Return type of current Emoji in Button
+     */
+    public String getCurrentEmojiType() {
+        return this.currentEmojiType;
     }
 
-    //Set The Current Emoji Text And Reaction
-    public void setCurrentEmojiType(String react){
-        switch (react){
+    /**
+     * @param emojiType : Emoji Type as String
+     *                  put Setting for this emoji type using switch
+     */
+    public void setCurrentEmojiType(String emojiType) {
+        switch (emojiType) {
             case DEFAULT:
                 reactButtonDefaultState();
                 break;
-
             case LIKE:
                 reactButtonLikeState();
                 break;
-
             case LOVE:
                 reactButtonLoveState();
                 break;
-
             case SMILE:
                 reactButtonSmileState();
                 break;
-
             case WOW:
                 reactButtonWowState();
                 break;
-
             case SAD:
                 reactButtonSadState();
                 break;
-
             case ANGRY:
                 reactButtonAngryState();
                 break;
         }
     }
 
-    //Private Method to Change Button state and set Reaction
-    //React Button Default State
-    private void reactButtonDefaultState(){
+    /**
+     * ReactButton default state settings
+     */
+    private void reactButtonDefaultState() {
         reactState = false;
-        emojiType = DEFAULT;
-        reactButton.setText(LIKE);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default,0,0,0);
+        currentEmojiType = DEFAULT;
+        mReactButton.setText(LIKE);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default, 0, 0, 0);
     }
 
-    //React Button Like State
-    private void reactButtonLikeState(){
+    /**
+     * ReactButton like state settings
+     */
+    private void reactButtonLikeState() {
         reactState = true;
-        emojiType = LIKE;
-        reactButton.setText(LIKE);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.BLUE));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_like,0,0,0);
+        currentEmojiType = LIKE;
+        mReactButton.setText(LIKE);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.BLUE));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_like, 0, 0, 0);
     }
 
-    //React Button Love State
-    private void reactButtonLoveState(){
+    /**
+     * ReactButton love state settings
+     */
+    private void reactButtonLoveState() {
         reactState = true;
-        emojiType = LOVE;
-        reactButton.setText(emojiType);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_LOVE));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_love,0,0,0);
+        currentEmojiType = LOVE;
+        mReactButton.setText(currentEmojiType);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_LOVE));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_love, 0, 0, 0);
     }
 
-    //React Button Smile State
-    private void reactButtonSmileState(){
+    /**
+     * ReactButton smile state settings
+     */
+    private void reactButtonSmileState() {
         reactState = true;
-        emojiType = SMILE;
-        reactButton.setText(emojiType);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_haha,0,0,0);
+        currentEmojiType = SMILE;
+        mReactButton.setText(currentEmojiType);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_haha, 0, 0, 0);
     }
 
-    //React Button Wow State
-    private void reactButtonWowState(){
+    /**
+     * ReactButton wow state settings
+     */
+    private void reactButtonWowState() {
         reactState = true;
-        emojiType = WOW;
-        reactButton.setText(emojiType);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_WOW));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_wow,0,0,0);
+        currentEmojiType = WOW;
+        mReactButton.setText(currentEmojiType);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_WOW));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_wow, 0, 0, 0);
     }
 
-    //React Button Sad State
-    private void reactButtonSadState(){
+    /**
+     * ReactButton sad state settings
+     */
+    private void reactButtonSadState() {
         reactState = true;
-        emojiType = SAD;
-        reactButton.setText(emojiType);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_sad,0,0,0);
+        currentEmojiType = SAD;
+        mReactButton.setText(currentEmojiType);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_sad, 0, 0, 0);
     }
 
-    //React Button Angry State
-    private void reactButtonAngryState(){
+    /**
+     * ReactButton angry state settings
+     */
+    private void reactButtonAngryState() {
         reactState = true;
-        emojiType = ANGRY;
-        reactButton.setText(emojiType);
-        reactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_ANGRY));
-        reactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_angry,0,0,0);
+        currentEmojiType = ANGRY;
+        mReactButton.setText(currentEmojiType);
+        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_ANGRY));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_angry, 0, 0, 0);
     }
 
+    /**
+     * Simple Method to set default settings for ReactButton Constructors
+     * - Default Text Is Like
+     * - set onClick And onLongClick
+     * - set Default image is Dark Like
+     */
+    private void reactButtonDefaultSetting() {
+        mReactButton.setText(LIKE);
+        mReactButton.setOnClickListener(this);
+        mReactButton.setOnLongClickListener(this);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reactbutton_default, 0, 0, 0);
+    }
 
-    //Get ReactButton OnClick From User
-    public void setReactClickListener(OnClickListener onClickListener){
+    /**
+     * @param onClickListener : get OnClickListener implementation from developer
+     *                        ans update onClickListener Value in this class
+     */
+    public void setReactClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
-    //Get ReactButton OnLongClick From User
-    public void setReactDismissListener(OnLongClickListener onDismisslListener){
-        this.onDismissListener = onDismisslListener;
+    /**
+     * @param onDismissListener : get OnLongClickListener implementation
+     *                          and update onDismissListener value in this class
+     */
+    public void setReactDismissListener(OnLongClickListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
     }
 
     @Override
@@ -313,7 +360,7 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
         //The Library OnClick
         onClickLikeAndDisLike();
         //If User Set OnClick Using it After Native Library OnClick
-        if(onClickListener != null){
+        if (onClickListener != null) {
             onClickListener.onClick(view);
         }
     }
@@ -324,11 +371,10 @@ public class ReactButton extends Button implements View.OnClickListener , View.O
         //First Using My Native OnLongClick
         onLongClickDialog();
         //Implement on Dismiss Listener to call Developer Method
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        emojisAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                if(onDismissListener != null)
-                {
+                if (onDismissListener != null) {
                     //User OnLongClick Implementation
                     onDismissListener.onLongClick(currentView);
                 }

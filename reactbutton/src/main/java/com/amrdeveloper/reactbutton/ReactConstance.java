@@ -6,7 +6,7 @@ import android.graphics.Color;
  * Created by AmrDeveloper on 2/2/2018.
  */
 
-public class ReactConstance {
+public final class ReactConstance {
 
     //Color Constance
     public final static String BLUE  = "#0366d6";
@@ -17,12 +17,10 @@ public class ReactConstance {
     public final static String DEFAULT = "#616770";
 
 
-    //Convert UniCode To String
-    public static String uniCodeToString(int uniCode){
-        return String.valueOf(Character.toChars(uniCode));
-    }
-
-    //Return Color as Integer
+    /**
+     * @param color : Color value as String
+     * @return : Color value as Integer
+     */
     public static int getColor(String color){
         return Color.parseColor(color);
     }
