@@ -105,6 +105,8 @@ Set on Long Click Listener :
             }
   });
   ```
-
-
-
+  
+Change Emoji layout background color :
+ ```java
+  reactButton.setDialogBackgroundColor(int color);
+  ```
