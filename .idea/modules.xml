@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ReactButton.iml" filepath="$PROJECT_DIR$/ReactButton.iml" />
-      <module fileurl="file://E:\MyCourses\My Librarys\ReactButton\ReactButton\ReactButtonLibrary.iml" filepath="E:\MyCourses\My Librarys\ReactButton\ReactButton\ReactButtonLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\MyCourses\My Librarys\ReactButton\ReactButton\app\app.iml" filepath="E:\MyCourses\My Librarys\ReactButton\ReactButton\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/reactbutton/reactbutton.iml" filepath="$PROJECT_DIR$/reactbutton/reactbutton.iml" />
-      <module fileurl="file://E:\MyCourses\My Librarys\ReactButton\ReactButton\reactbutton\reactbutton.iml" filepath="E:\MyCourses\My Librarys\ReactButton\ReactButton\reactbutton\reactbutton.iml" />
     </modules>
   </component>
 </project>

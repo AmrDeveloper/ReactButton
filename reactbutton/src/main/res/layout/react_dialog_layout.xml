@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reactLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/likeImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/like" />
+
+    <ImageButton
+        android:id="@+id/loveImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/love" />
+
+    <ImageButton
+        android:id="@+id/smileImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/smile" />
+
+    <ImageButton
+        android:id="@+id/wowImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/wow" />
+
+    <ImageButton
+        android:id="@+id/sadImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/sad" />
+
+    <ImageButton
+        android:id="@+id/angryImgButton"
+        style="@style/ReactImageButton"
+        android:src="@mipmap/angry" />
+</LinearLayout>
