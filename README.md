@@ -1,5 +1,5 @@
 # ReactButton
-Android Library By Java to Create ReactButton with 6 Emoji Face 
+Android Library By Java to Create ReactButton with 6 Reaction Face 
 
 Description :
 
@@ -16,14 +16,14 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-    implementation 'com.github.AmrDeveloper.ReactButton:app:1.0.5'
+    implementation 'com.github.AmrDeveloper.ReactButton:app:1.0.6'
             
 Default Case :
 
     Text = Like 
     Emoji is black Hand
-    If User Click on Button it Text Will still like but emoji will be blue hand
-    and if user click long on button it will show dialog to choose one emoji from 6 emojis
+    If User Click on Button it Text Will still like but reaction will be blue hand
+    and if user click long on button it will show dialog to choose one reaction from 6 reactions
 
 How To Initializing ReactButton :
 
@@ -34,7 +34,7 @@ ReactButton reactButton = findViewById(R.id.buttonId);
 Set Emoji Type on Button :
 
 ```java
-   reactButton.setCurrentEmojiType(String emojiType);
+   reactButton.setCurrentEmojiType(String reactionType);
    
    Types : 
    ReactButton.DEFAULT
@@ -46,12 +46,12 @@ Set Emoji Type on Button :
    ReactButton.ANGRY
 ```
 
-To Get Current Emoji On Button :
+To Get Current Reaction On Button :
 
 ```java
-String currentEmoji = reactButton.getCurrentEmojiType();
+String currentReaction = reactButton.getCurrentReactType();
 
-switch(currentEmoji)
+switch(currentReaction)
 {
    case ReactButton.LIKE:
        //Text Is Like , Emoji Is Blue Hand
@@ -62,7 +62,7 @@ switch(currentEmoji)
        break;
        
    case ReactButton.SMILE:
-        //Text Is Smile , Emoji Is Smile Hand
+        //Text Is Smile , Emoji Is Smile Face
        break;
        
    case ReactButton.WOW:
@@ -106,7 +106,13 @@ Set on Long Click Listener :
   });
   ```
   
-Change Emoji layout background color :
+Change Reatction layout background color :
  ```java
   reactButton.setDialogBackgroundColor(int color);
   ```
+  
+Change Reaction dialog shape :
+ ```java
+  reactButton.setReactDialogShape(int shapeID);
+  ```
+  
