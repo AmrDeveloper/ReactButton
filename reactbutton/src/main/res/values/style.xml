@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--Emoji Button Style-->
+    <!--Reaction Button Style-->
     <style name="ReactImageButton">
         <item name="android:gravity">center</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_weight">@dimen/one</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:cropToPadding">false</item>
+        <item name="android:padding">@dimen/dimen7dp</item>
     </style>
-
 </resources>

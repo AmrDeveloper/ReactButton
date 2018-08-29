@@ -209,7 +209,7 @@ public class ReactButton
         mCurrentReactType = DEFAULT;
         mReactButton.setText(LIKE);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reset, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
     }
 
     /**
@@ -220,7 +220,7 @@ public class ReactButton
         mCurrentReactType = LIKE;
         mReactButton.setText(LIKE);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.BLUE));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.like, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
     }
 
     /**
@@ -231,7 +231,7 @@ public class ReactButton
         mCurrentReactType = LOVE;
         mReactButton.setText(mCurrentReactType);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_LOVE));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.love, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart, 0, 0, 0);
     }
 
     /**
@@ -242,7 +242,7 @@ public class ReactButton
         mCurrentReactType = SMILE;
         mReactButton.setText(mCurrentReactType);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.smile, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_happy, 0, 0, 0);
     }
 
     /**
@@ -253,7 +253,7 @@ public class ReactButton
         mCurrentReactType = WOW;
         mReactButton.setText(mCurrentReactType);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_WOW));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.wow, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_surprise, 0, 0, 0);
     }
 
     /**
@@ -264,7 +264,7 @@ public class ReactButton
         mCurrentReactType = SAD;
         mReactButton.setText(mCurrentReactType);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.sad, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sad, 0, 0, 0);
     }
 
     /**
@@ -275,7 +275,7 @@ public class ReactButton
         mCurrentReactType = ANGRY;
         mReactButton.setText(mCurrentReactType);
         mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_ANGRY));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.angry, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_angry, 0, 0, 0);
     }
 
     /**
@@ -288,7 +288,7 @@ public class ReactButton
         mReactButton.setText(LIKE);
         mReactButton.setOnClickListener(this);
         mReactButton.setOnLongClickListener(this);
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.reset, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
     }
 
     @Override
