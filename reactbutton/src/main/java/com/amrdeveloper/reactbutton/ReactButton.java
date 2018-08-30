@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -25,30 +26,10 @@ public class ReactButton
     private ReactButton mReactButton = this;
 
     /**
-     * Emoji Alert Dialog to show emoji layout with 6 emoji faces
+     * Reaction Alert Dialog to show Reaction layout with 6 Reactions
      */
     private AlertDialog mReactAlertDialog;
 
-    /**
-     * ImageButton Object for every React face
-     */
-    private ImageButton likeImgButton;
-    private ImageButton loveImgButton;
-    private ImageButton smileImgButton;
-    private ImageButton wowImgButton;
-    private ImageButton sadImgButton;
-    private ImageButton angryImgButton;
-
-    /**
-     * Type of every React as String
-     */
-    public static final String DEFAULT = "Default";
-    public static final String LIKE = "Like";
-    public static final String LOVE = "Love";
-    public static final String SMILE = "Smile";
-    public static final String WOW = "Wow";
-    public static final String SAD = "Sad";
-    public static final String ANGRY = "Angry";
 
     /**
      * react current state as boolean variable
@@ -57,10 +38,39 @@ public class ReactButton
     private boolean mCurrentReactState;
 
     /**
-     * String variable to save current React Type
-     * default type is 'Default'
+     * ImagesButton one for every Reaction
      */
-    private String mCurrentReactType = DEFAULT;
+    private ImageButton mImgButtonOne;
+    private ImageButton mImgButtonTwo;
+    private ImageButton mImgButtonThree;
+    private ImageButton mImgButtonFour;
+    private ImageButton mImgButtonFive;
+    private ImageButton mImgButtonSix;
+
+    /**
+     * Number of Valid Reactions
+     */
+    private static final int REACTIONS_NUMBER = 6;
+
+    /**
+     * Array of ImagesButton to set any action for all
+     */
+    private final ImageButton[] mReactImgArray = new ImageButton[REACTIONS_NUMBER];
+
+    /**
+     * Reaction Object to save default Reaction
+     */
+    private Reaction mDefaultReaction = FbReactions.getDefaultReact();
+
+    /**
+     * Reaction Object to save the current Reaction
+     */
+    private Reaction mCurrentReaction = mDefaultReaction;
+
+    /**
+     * Array of six Reaction one for every ImageButton Icon
+     */
+    private Reaction[] mReactionPack = FbReactions.getReactions();
 
     /**
      * Integer variable to change react dialog shape
@@ -99,22 +109,23 @@ public class ReactButton
         reactButtonDefaultSetting();
     }
 
-    //Method To Make Button Like if it default and dislike if state is true
+    /**
+     * Method with 2 state set first React or back to default state
+     */
     private void onClickLikeAndDisLike() {
         //Code When User Click On Button
         //If State is true , dislike The Button And Return To Default State
         if (mCurrentReactState) {
-            reactButtonDefaultState();
+            updateReactButtonByReaction(mDefaultReaction);
         } else {
-            reactButtonLikeState();
+            updateReactButtonByReaction(mReactionPack[0]);
         }
     }
 
     /**
-     * Show emoji dialog when user long click on react button
+     * Show Reaction dialog when user long click on react button
      */
     private void onLongClickDialog() {
-        //Code When User Click Long on Button
         //Show Dialog With 6 React
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
 
@@ -122,7 +133,9 @@ public class ReactButton
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.react_dialog_layout, null);
 
-        initializingViews(dialogView);
+        initializingReactImages(dialogView);
+        setReactionsArray();
+        resetReactionsIcons();
         onClickImageButtons();
 
         dialogBuilder.setView(dialogView);
@@ -136,146 +149,62 @@ public class ReactButton
     }
 
     /**
-     * @param view : get current View
-     *             and using id to initializing ImageButtons Using id and View Object
+     * @param view : View Object to initialize all ImagesButton
      */
-    private void initializingViews(View view) {
-        likeImgButton = view.findViewById(R.id.likeImgButton);
-        loveImgButton = view.findViewById(R.id.loveImgButton);
-        smileImgButton = view.findViewById(R.id.smileImgButton);
-        wowImgButton = view.findViewById(R.id.wowImgButton);
-        sadImgButton = view.findViewById(R.id.sadImgButton);
-        angryImgButton = view.findViewById(R.id.angryImgButton);
+    private void initializingReactImages(View view) {
+        mImgButtonOne = view.findViewById(R.id.imgButtonOne);
+        mImgButtonTwo = view.findViewById(R.id.imgButtonTwo);
+        mImgButtonThree = view.findViewById(R.id.imgButtonThree);
+        mImgButtonFour = view.findViewById(R.id.imgButtonFour);
+        mImgButtonFive = view.findViewById(R.id.imgButtonFive);
+        mImgButtonSix = view.findViewById(R.id.imgButtonSix);
     }
 
     /**
-     * Set onClickListener For every Image Buttons on Emoji Dialog
+     * Put all ImagesButton on Array
+     */
+    private void setReactionsArray() {
+        mReactImgArray[0] = mImgButtonOne;
+        mReactImgArray[1] = mImgButtonTwo;
+        mReactImgArray[2] = mImgButtonThree;
+        mReactImgArray[3] = mImgButtonFour;
+        mReactImgArray[4] = mImgButtonFive;
+        mReactImgArray[5] = mImgButtonSix;
+    }
+
+    /**
+     * Set onClickListener For every Image Buttons on Reaction Dialog
      */
     private void onClickImageButtons() {
-        likeImgButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reactButtonLikeState();
-                mReactAlertDialog.dismiss();
-            }
-        });
+        imgButtonSetListener(mImgButtonOne, 0);
+        imgButtonSetListener(mImgButtonTwo, 1);
+        imgButtonSetListener(mImgButtonThree, 2);
+        imgButtonSetListener(mImgButtonFour, 3);
+        imgButtonSetListener(mImgButtonFive, 4);
+        imgButtonSetListener(mImgButtonSix, 5);
+    }
 
-        loveImgButton.setOnClickListener(new OnClickListener() {
+    /**
+     * @param imgButton  : ImageButton view to set onClickListener
+     * @param reactIndex : Index of Reaction to take it from ReactionPack
+     */
+    private void imgButtonSetListener(ImageButton imgButton, final int reactIndex) {
+        imgButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View view) {
-                reactButtonLoveState();
-                mReactAlertDialog.dismiss();
-            }
-        });
-
-        smileImgButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reactButtonSmileState();
-                mReactAlertDialog.dismiss();
-            }
-        });
-
-        wowImgButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reactButtonWowState();
-                mReactAlertDialog.dismiss();
-            }
-        });
-
-        sadImgButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reactButtonSadState();
-                mReactAlertDialog.dismiss();
-            }
-        });
-
-        angryImgButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reactButtonAngryState();
+            public void onClick(View v) {
+                updateReactButtonByReaction(mReactionPack[reactIndex]);
                 mReactAlertDialog.dismiss();
             }
         });
     }
 
     /**
-     * ReactButton default state settings
+     * Update All Reaction ImageButton one by one from Reactions array
      */
-    private void reactButtonDefaultState() {
-        mCurrentReactState = false;
-        mCurrentReactType = DEFAULT;
-        mReactButton.setText(LIKE);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.DEFAULT));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton like state settings
-     */
-    private void reactButtonLikeState() {
-        mCurrentReactState = true;
-        mCurrentReactType = LIKE;
-        mReactButton.setText(LIKE);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.BLUE));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton love state settings
-     */
-    private void reactButtonLoveState() {
-        mCurrentReactState = true;
-        mCurrentReactType = LOVE;
-        mReactButton.setText(mCurrentReactType);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_LOVE));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton smile state settings
-     */
-    private void reactButtonSmileState() {
-        mCurrentReactState = true;
-        mCurrentReactType = SMILE;
-        mReactButton.setText(mCurrentReactType);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_happy, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton wow state settings
-     */
-    private void reactButtonWowState() {
-        mCurrentReactState = true;
-        mCurrentReactType = WOW;
-        mReactButton.setText(mCurrentReactType);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_WOW));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_surprise, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton sad state settings
-     */
-    private void reactButtonSadState() {
-        mCurrentReactState = true;
-        mCurrentReactType = SAD;
-        mReactButton.setText(mCurrentReactType);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.YELLOW_HAHA));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_sad, 0, 0, 0);
-    }
-
-    /**
-     * ReactButton angry state settings
-     */
-    private void reactButtonAngryState() {
-        mCurrentReactState = true;
-        mCurrentReactType = ANGRY;
-        mReactButton.setText(mCurrentReactType);
-        mReactButton.setTextColor(ReactConstance.getColor(ReactConstance.RED_ANGRY));
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_angry, 0, 0, 0);
+    private void resetReactionsIcons() {
+        for (int index = 0; index < REACTIONS_NUMBER; index++) {
+            mReactImgArray[index].setImageResource(mReactionPack[index].getReactIconId());
+        }
     }
 
     /**
@@ -285,10 +214,92 @@ public class ReactButton
      * - set Default image is Dark Like
      */
     private void reactButtonDefaultSetting() {
-        mReactButton.setText(LIKE);
+        mReactButton.setText(mDefaultReaction.getReactText());
         mReactButton.setOnClickListener(this);
         mReactButton.setOnLongClickListener(this);
-        mReactButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_gray_like, 0, 0, 0);
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(mDefaultReaction.getReactIconId(), 0, 0, 0);
+    }
+
+    /**
+     * @param shapeId : Get xml Shape for react dialog layout
+     */
+    public void setReactionDialogShape(int shapeId) {
+        //Set Shape for react dialog layout
+        this.mReactDialogShape = shapeId;
+    }
+
+    /**
+     * @param react : Reaction to update UI by take attribute from it
+     */
+    private void updateReactButtonByReaction(Reaction react) {
+        mCurrentReaction = react;
+        mReactButton.setText(react.getReactText());
+        mReactButton.setTextColor(Color.parseColor(react.getReactTextColor()));
+        mReactButton.setCompoundDrawablesWithIntrinsicBounds(react.getReactIconId(), 0, 0, 0);
+        mCurrentReactState = !react.getReactType().equals(mDefaultReaction.getReactType());
+    }
+
+    /**
+     * @param reactions : Array of six Reactions to update default six Reactions
+     */
+    public void setReactions(Reaction... reactions) {
+        //Assert that Reactions number is six
+        if (reactions.length != REACTIONS_NUMBER)
+            return;
+        //Update array of library default reactions
+        mReactionPack = reactions;
+    }
+
+    /**
+     * @param reaction : set This Reaction as current Reaction
+     */
+    public void setCurrentReaction(Reaction reaction) {
+        updateReactButtonByReaction(reaction);
+    }
+
+    /**
+     * @return : The Current reaction Object
+     */
+    public Reaction getCurrentReaction() {
+        return mCurrentReaction;
+    }
+
+    /**
+     * @param reaction : Update library default Reaction by other Reaction
+     */
+    public void setDefaultReaction(Reaction reaction) {
+        mDefaultReaction = reaction;
+        updateReactButtonByReaction(mDefaultReaction);
+    }
+
+    /**
+     * @return : The current default Reaction object
+     */
+    public Reaction getDefaultReaction() {
+        return mDefaultReaction;
+    }
+
+    /**
+     * @param onClickListener : get OnClickListener implementation from developer
+     *                        ans update onClickListener Value in this class
+     */
+    public void setReactClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    /**
+     * @param onDismissListener : get OnLongClickListener implementation
+     *                          and update onDismissListener value in this class
+     */
+    public void setReactDismissListener(OnLongClickListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
+    /**
+     * @return : true if current reaction type is default
+     */
+    public boolean isDefaultReaction() {
+        return mCurrentReaction.equals(mDefaultReaction);
     }
 
     @Override
@@ -317,66 +328,5 @@ public class ReactButton
             }
         });
         return true;
-    }
-
-    /**
-     * @param shapeId : Get xml Shape for react dialog layout
-     */
-    public void setReactDialogShape(int shapeId) {
-        //Set Shape for react dialog layout
-        this.mReactDialogShape = shapeId;
-    }
-
-    /**
-     * @return : Return type of current Emoji in Button
-     */
-    public String getCurrentReactType() {
-        return this.mCurrentReactType;
-    }
-
-    /**
-     * @param reactName : Emoji Type as String
-     *                  put Setting for this emoji type using switch
-     */
-    public void setCurrentReactType(String reactName) {
-        switch (reactName) {
-            case DEFAULT:
-                reactButtonDefaultState();
-                break;
-            case LIKE:
-                reactButtonLikeState();
-                break;
-            case LOVE:
-                reactButtonLoveState();
-                break;
-            case SMILE:
-                reactButtonSmileState();
-                break;
-            case WOW:
-                reactButtonWowState();
-                break;
-            case SAD:
-                reactButtonSadState();
-                break;
-            case ANGRY:
-                reactButtonAngryState();
-                break;
-        }
-    }
-
-    /**
-     * @param onClickListener : get OnClickListener implementation from developer
-     *                        ans update onClickListener Value in this class
-     */
-    public void setReactClickListener(OnClickListener onClickListener) {
-        this.onClickListener = onClickListener;
-    }
-
-    /**
-     * @param onDismissListener : get OnLongClickListener implementation
-     *                          and update onDismissListener value in this class
-     */
-    public void setReactDismissListener(OnLongClickListener onDismissListener) {
-        this.onDismissListener = onDismissListener;
     }
 }
