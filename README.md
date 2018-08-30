@@ -1,5 +1,13 @@
 # ReactButton
-Android Library By Java to Create ReactButton with 6 Reaction Face 
+Android Library By Java to Create ReactButton with 6 Reaction :sunglasses:
+
+Default Reactions :smile:
+
+<img src="https://i.imgur.com/Cnut0ex.png" width="200">
+
+Custom Reactions :wink:
+
+<img src="https://i.imgur.com/C4srnIt.png" width="200">
 
 Description :
 
@@ -16,7 +24,7 @@ Add it in your root build.gradle at the end of repositories
              
 Add the dependency      
 
-    implementation 'com.github.AmrDeveloper.ReactButton:app:1.0.6'
+    implementation 'com.github.AmrDeveloper.ReactButton:app:1.0.7'
             
 Default Case :
 
@@ -31,57 +39,40 @@ How To Initializing ReactButton :
 ReactButton reactButton = findViewById(R.id.buttonId);
 ```
 
-Set Emoji Type on Button :
+Set Six Reactions if you want to change Default Reactions:
 
 ```java
-   reactButton.setCurrentEmojiType(String reactionType);
-   
-   Types : 
-   ReactButton.DEFAULT
-   ReactButton.LIKE
-   ReactButton.LOVE
-   ReactButton.SMILE
-   ReactButton.WOW
-   ReactButton.SAD
-   ReactButton.ANGRY
+reactButton.setReactions(Reaction... reaction);
 ```
 
-To Get Current Reaction On Button :
+Set Current Reaction:
 
 ```java
-String currentReaction = reactButton.getCurrentReactType();
-
-switch(currentReaction)
-{
-   case ReactButton.LIKE:
-       //Text Is Like , Emoji Is Blue Hand
-       break;
-       
-   case ReactButton.LOVE:
-       //Text Is Like , Emoji Is Red Heart
-       break;
-       
-   case ReactButton.SMILE:
-        //Text Is Smile , Emoji Is Smile Face
-       break;
-       
-   case ReactButton.WOW:
-       //Text Is Wow , Emoji Is Wow Face
-       break;
-       
-   case ReactButton.SAD:
-       //Text Is Sad , Emoji Is Dark Hand
-       break;
-       
-   case ReactButton.ANGRY:
-       //Text Is Angry , Emoji Is Angry Face
-       break; 
-       
-   default:
-       //Text Is Like , Emoji Is Dark Hand
-       break;
-}
+reactButton.setCurrentReaction(Reaction reaction);
 ```
+
+Get Current Reaction :
+
+```java
+Reaction currentReaction = reactButton.getCurrentReaction();
+```
+
+Set Default Reaction:
+
+```java
+reactButton.setDefaultReaction(Reaction reaction);
+```
+
+Get Default Reaction :
+
+```java
+Reaction currentReaction = reactButton.getDefaultReaction();
+```
+
+Change Reaction dialog default Style :
+ ```java
+ reactButton.setReactDialogShape(int styleID);
+  ``` 
 
 Set On Click Listener :
 
@@ -105,14 +96,8 @@ Set on Long Click Listener :
             }
   });
   ```
-  
-Change Reatction layout background color :
+
+Check if current Reaction is Default Reaction:
  ```java
-  reactButton.setDialogBackgroundColor(int color);
-  ```
-  
-Change Reaction dialog shape :
- ```java
-  reactButton.setReactDialogShape(int shapeID);
-  ```
-  
+ boolean isDefault = reactButton.isDefaultReaction();
+  ``` 
