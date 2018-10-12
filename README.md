@@ -1,6 +1,11 @@
 # ReactButton
 Android Library By Java to Create ReactButton with 6 Reaction :sunglasses:
 
+![Min API](https://img.shields.io/badge/Api-%2B15-red.svg)
+![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
+![Forks](https://img.shields.io/github/forks/AmrDeveloper/ReactButton.svg)
+![License](https://img.shields.io/github/license/AmrDeveloper/ReactButton.svg)
+
 Default Reactions :smile:
 
 <img src="https://i.imgur.com/Cnut0ex.png" width="200">
