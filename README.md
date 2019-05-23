@@ -1,5 +1,5 @@
 # ReactButton
-Android Library By Java to Create ReactButton with 6 Reaction :sunglasses:
+Android Library By Java to Create ReactButton with Multi Reactions like Facebook or Linkedin :sunglasses:
 
 ![Min API](https://img.shields.io/badge/Api-%2B15-red.svg)
 ![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
