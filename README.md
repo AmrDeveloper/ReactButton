@@ -1,5 +1,5 @@
 # ReactButton
-Android Library By Java to Create ReactButton with Multi Reactions like Facebook or Linkedin :sunglasses:
+Android Library written in Java to Create ReactButton with Multi Reactions like Facebook or Linkedin :sunglasses:
 
 ![Min API](https://img.shields.io/badge/Api-%2B15-red.svg)
 ![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
@@ -19,17 +19,21 @@ Description :
 Add ReactButton To Your Current Project :
 
 Add it in your root build.gradle at the end of repositories
-    
-    allprojects {
-        repositories {
-			maven { url 'https://jitpack.io' }
-		}
-	}
+  
+```gradle
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
     
              
 Add the dependency      
 
-    implementation 'com.github.AmrDeveloper.ReactButton:reactbutton:1.0.7'
+```gradle
+implementation 'com.github.AmrDeveloper.ReactButton:reactbutton:1.0.7'
+```
             
 Default Case :
 
@@ -75,34 +79,34 @@ Reaction currentReaction = reactButton.getDefaultReaction();
 ```
 
 Change Reaction dialog default Style :
- ```java
- reactButton.setReactDialogShape(int styleID);
-  ``` 
+```java
+reactButton.setReactDialogShape(int styleID);
+``` 
 
 Set On Click Listener :
 
-  ```java
-  reactButton.setReactClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Your Code
-            }
-   });
-   ```
+```java
+reactButton.setReactClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        //Your Code
+    }
+});
+ ```
 
 Set on Long Click Listener :
 
- ```java
-  reactButton.setReactDismissListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                //Your Code
-                return false;
-            }
-  });
-  ```
+```java
+reactButton.setReactDismissListener(new View.OnLongClickListener() {
+    @Override
+    public boolean onLongClick(View view) {
+        //Your Code
+        return false;
+    }
+});
+```
 
 Check if current Reaction is Default Reaction:
- ```java
- boolean isDefault = reactButton.isDefaultReaction();
-  ``` 
+```java
+boolean isDefault = reactButton.isDefaultReaction();
+``` 
