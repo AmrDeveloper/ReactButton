@@ -15,6 +15,7 @@ final class FbReactions {
             new Reaction(ReactConstants.WOW,ReactConstants.YELLOW_WOW,R.drawable.ic_surprise),
             new Reaction(ReactConstants.SAD,ReactConstants.YELLOW_HAHA,R.drawable.ic_sad),
             new Reaction(ReactConstants.ANGRY,ReactConstants.RED_ANGRY,R.drawable.ic_angry),
+            new Reaction(ReactConstants.ANGRY,ReactConstants.RED_ANGRY,R.drawable.ic_angry),
     };
 
 
