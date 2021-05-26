@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ReactButton</string>
+    <string name="reaction">reaction</string>
 </resources>

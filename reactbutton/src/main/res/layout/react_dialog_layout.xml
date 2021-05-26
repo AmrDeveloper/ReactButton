@@ -1,38 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/reactLayout"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reactionsList"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@android:color/transparent"
-    android:orientation="horizontal">
-
-    <ImageButton
-        android:id="@+id/imgButtonOne"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_like" />
-
-    <ImageButton
-        android:id="@+id/imgButtonTwo"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_heart" />
-
-    <ImageButton
-        android:id="@+id/imgButtonThree"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_happy" />
-
-    <ImageButton
-        android:id="@+id/imgButtonFour"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_surprise" />
-
-    <ImageButton
-        android:id="@+id/imgButtonFive"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_sad" />
-
-    <ImageButton
-        android:id="@+id/imgButtonSix"
-        style="@style/ReactImageButton"
-        android:src="@drawable/ic_angry" />
-</LinearLayout>
+    android:gravity="center"
+    android:numColumns="6"
+    tools:listitem="@layout/react_dialog_item" />

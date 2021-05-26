@@ -1,31 +1,18 @@
 package com.amrdeveloper.reactbutton;
 
-/**
- * Model Class to save one React Attribute
- */
+import java.util.Arrays;
+
 public class Reaction {
 
-    /**
-     * ReactButton Text for this Reaction
-     */
-    private String reactText;
+    private final String reactText;
+
+    private final String reactType;
+
+    private final String reactTextColor;
+
+    private final int reactIconId;
 
     /**
-     * ReactButton Type for this Reaction
-     */
-    private String reactType;
-
-    /**
-     * ReactButton TextColor value for this Reaction
-     */
-    private String reactTextColor;
-
-    /**
-     * ReactButton Icon id value for this Reaction
-     */
-    private int reactIconId;
-
-    /*
      * This Constructor for default state because React type not equal react Text
      * for example in library default state text is 'like' but type is 'default'
      */
@@ -36,7 +23,7 @@ public class Reaction {
         this.reactIconId = reactIconId;
     }
 
-    /*
+    /**
      * Constructor for all Reaction that text is equal type
      * for example in like state text is 'like' and type is 'like' also
      */
@@ -51,10 +38,6 @@ public class Reaction {
         return reactText;
     }
 
-    public String getReactType() {
-        return reactType;
-    }
-
     public String getReactTextColor() {
         return reactTextColor;
     }
@@ -63,20 +46,24 @@ public class Reaction {
         return reactIconId;
     }
 
-    /**
-     * @param object : Reaction object
-     * @return : true if new Reaction type equal current Reaction
-     */
     @Override
-    public boolean equals(Object object) {
-        //Assert that obj type is Reaction
-        if (object instanceof Reaction) {
-            //Cast Object to Reaction
-            Reaction react = (Reaction) object;
-            //if react type equal current Reaction type
-            return react.getReactType().equals(reactType);
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reaction reaction = (Reaction) o;
+        return reactIconId == reaction.reactIconId &&
+                (reactText != null && reactText.equals(reaction.reactText)) &&
+                (reactType != null && reactType.equals(reaction.reactType)) &&
+                (reactTextColor != null && reactTextColor.equals(reaction.reactTextColor));
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(new int[]{
+                reactIconId,
+                reactText.hashCode(),
+                reactType.hashCode(),
+                reactTextColor.hashCode(),
+        });
     }
 }
-

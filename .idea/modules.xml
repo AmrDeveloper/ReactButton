@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/OpenSource-ReactButton.iml" filepath="$PROJECT_DIR$/OpenSource-ReactButton.iml" group="ReactButton" />
-      <module fileurl="file://$PROJECT_DIR$/ReactButton.iml" filepath="$PROJECT_DIR$/ReactButton.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/ReactButton-app.iml" filepath="$PROJECT_DIR$/app/ReactButton-app.iml" group="ReactButton/app" />
-      <module fileurl="file://$PROJECT_DIR$/reactbutton/ReactButton-reactbutton.iml" filepath="$PROJECT_DIR$/reactbutton/ReactButton-reactbutton.iml" group="ReactButton/reactbutton" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/reactbutton/reactbutton.iml" filepath="$PROJECT_DIR$/reactbutton/reactbutton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ReactButton.iml" filepath="$PROJECT_DIR$/.idea/modules/ReactButton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ReactButton.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ReactButton.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/reactbutton/ReactButton.reactbutton.iml" filepath="$PROJECT_DIR$/.idea/modules/reactbutton/ReactButton.reactbutton.iml" />
     </modules>
   </component>
 </project>
