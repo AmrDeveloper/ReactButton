@@ -16,7 +16,7 @@ Custom Reactions :wink:
 
 Description :
 
-Add ReactButton To Your Current Project :
+Add ReactButton To Your Current Project:
 
 Add it in your root build.gradle at the end of repositories
   
@@ -27,28 +27,20 @@ allprojects {
     }
 }
 ```
-    
              
 Add the dependency      
 
 ```gradle
 implementation 'com.github.AmrDeveloper.ReactButton:reactbutton:1.0.7'
 ```
-            
-Default Case :
 
-    Text = Like 
-    Emoji is black Hand
-    If User Click on Button it Text Will still like but reaction will be blue hand
-    and if user click long on button it will show dialog to choose one reaction from 6 reactions
-
-How To Initializing ReactButton :
+How To Initializing ReactButton:
 
 ```java
 ReactButton reactButton = findViewById(R.id.buttonId);
 ```
 
-Set Six Reactions if you want to change Default Reactions:
+Set your Reactions:
 
 ```java
 reactButton.setReactions(Reaction... reaction);
@@ -60,7 +52,7 @@ Set Current Reaction:
 reactButton.setCurrentReaction(Reaction reaction);
 ```
 
-Get Current Reaction :
+Get Current Reaction:
 
 ```java
 Reaction currentReaction = reactButton.getCurrentReaction();
@@ -72,36 +64,45 @@ Set Default Reaction:
 reactButton.setDefaultReaction(Reaction reaction);
 ```
 
-Get Default Reaction :
+Get Default Reaction:
 
 ```java
 Reaction currentReaction = reactButton.getDefaultReaction();
 ```
 
-Change Reaction dialog default Style :
+Change Reaction dialog default Style:
 ```java
 reactButton.setReactDialogShape(int styleID);
 ``` 
 
-Set On Click Listener :
+Change the number of reactions in the Columns, the default value is all reactions size
+```java
+reactButton.setDialogColumnsNumber(n);
+```
+
+Set setOnReactionChangeListener:
 
 ```java
-reactButton.setReactClickListener(new View.OnClickListener() {
+reactButton.setOnReactionChangeListener(new ReactButton.OnReactionChangeListener() {
     @Override
-    public void onClick(View view) {
-        //Your Code
+    public void onReactionChange(Reaction reaction) {
+        // Code that will execute when the reaction changed
     }
 });
  ```
 
-Set on Long Click Listener :
+Set OnReactionDialogStateListener:
 
 ```java
-reactButton.setReactDismissListener(new View.OnLongClickListener() {
+reactButton.setOnReactionDialogStateListener(new ReactButton.OnReactionDialogStateListener() {
     @Override
-    public boolean onLongClick(View view) {
-        //Your Code
-        return false;
+    public void onDialogOpened() {
+        // Code that will execute when the reaction dialog is opened
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        // Code that will execute after the reaction dialog is dismissed
     }
 });
 ```
