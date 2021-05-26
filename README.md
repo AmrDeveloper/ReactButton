@@ -7,6 +7,9 @@
 
 Android Library to make it easy to add ReactButton feature in your app with Multi Reactions like Facebook or Linkedin ...etc, you can add many reactions as you want, you can also split them into number of columns, and also customize the colors and text for each reactions
 
+##### Note
+> From version 2.0.0 and above the library will release without default icons to reduce the size and if you want the facebook reactions you can copy them from the example app [here](https://github.com/AmrDeveloper/ReactButton/tree/master/app)
+
 #### Demo :smile:
 
 <p align="center">
@@ -114,3 +117,5 @@ Check if current Reaction is Default Reaction:
 ```java
 boolean isDefault = reactButton.isDefaultReaction();
 ``` 
+
+##### For full example please check the example app [here](https://github.com/AmrDeveloper/ReactButton/tree/master/app)
