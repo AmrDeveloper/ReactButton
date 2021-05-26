@@ -1,20 +1,22 @@
 # ReactButton
-Android Library written in Java to Create ReactButton with Multi Reactions like Facebook or Linkedin :sunglasses:
-
 ![Min API](https://img.shields.io/badge/Api-%2B15-red.svg)
 ![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
 ![Forks](https://img.shields.io/github/forks/AmrDeveloper/ReactButton.svg)
 ![License](https://img.shields.io/github/license/AmrDeveloper/ReactButton.svg)
 
-Default Reactions :smile:
+Android Library to make it easy to add ReactButton feature in your app with Multi Reactions like Facebook or Linkedin ...etc, you can add many reactions as you want, you can also split them into number of columns, and also customize the colors and text for each reactions
 
-<img src="https://i.imgur.com/Cnut0ex.png" width="200">
+#### Demo :smile:
 
-Custom Reactions :wink:
+<p align="center">
+<img src="/screenshots/facebook_reacts_demo.gif" height="400px" width="25%"> <img src="/screenshots/dc_reacts_demo.gif" height="400px" width="25%"> <img src="/screenshots/facebook_reacts_portal.png" height="400px" width="25%">
+</p>
+  
+<p align="center">
+<img src="/screenshots/facebook_reacts_landscape.png" height="260px">
+</p>
 
-<img src="https://i.imgur.com/C4srnIt.png" width="200">
-
-Description :
+#### Documentation:
 
 Add ReactButton To Your Current Project:
 
@@ -31,7 +33,7 @@ allprojects {
 Add the dependency      
 
 ```gradle
-implementation 'com.github.AmrDeveloper.ReactButton:reactbutton:1.0.7'
+implementation 'com.github.AmrDeveloper.ReactButton:reactbutton:2.0.0'
 ```
 
 How To Initializing ReactButton:
