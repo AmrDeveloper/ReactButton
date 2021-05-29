@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
+import androidx.annotation.DrawableRes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,6 +70,18 @@ public class ReactButton
      * Default value is react_dialog_shape
      */
     private int mReactDialogShape = R.drawable.react_dialog_shape;
+
+    /**
+     *  The size of reaction icon in dp
+     *  Icon size + icon padding * 2
+     */
+    private static final int ICON_SIZE_WITH_PADDING = 55;
+
+    /**
+     * Full reaction icon size converted from dp
+     */
+    private final int REACTION_ICON_SIZE = (ICON_SIZE_WITH_PADDING *
+            getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
 
     public interface OnReactionDialogStateListener {
         void onDialogOpened();
@@ -133,14 +147,17 @@ public class ReactButton
      * Show Reaction dialog when user long click on react button
      */
     private void showReactionsDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final Context context = getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View dialogView = inflater.inflate(R.layout.react_dialog_layout, null);
-        GridView reactionsGrid = dialogView.findViewById(R.id.reactionsList);
 
-        ReactionAdapter adapter = new ReactionAdapter(getContext(), mReactions);
+        GridView reactionsGrid = dialogView.findViewById(R.id.reactionsList);
+        ReactionAdapter adapter = new ReactionAdapter(context, mReactions);
         reactionsGrid.setAdapter(adapter);
+
+        // Setup the columns number
+        if (mDialogColumnsNumber == 0) mDialogColumnsNumber = mReactions.size();
+        reactionsGrid.setNumColumns(mDialogColumnsNumber);
 
         reactionsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -151,29 +168,24 @@ public class ReactButton
             }
         });
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         dialogBuilder.setView(dialogView);
         mReactAlertDialog = dialogBuilder.create();
         mReactAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         Window window = mReactAlertDialog.getWindow();
-        window.setGravity(Gravity.CENTER);
         window.setBackgroundDrawableResource(mReactDialogShape);
+
+        // Setup dialog gravity and dynamic position
         WindowManager.LayoutParams windowManagerAttributes = window.getAttributes();
         windowManagerAttributes.gravity = Gravity.TOP | Gravity.START;
         windowManagerAttributes.x = (int) getX() + (getWidth() / 2);
         windowManagerAttributes.y = (int) getY() + (getHeight() / 2);
 
-        if (mDialogColumnsNumber == 0) mDialogColumnsNumber = mReactions.size();
-
-        reactionsGrid.setNumColumns(mDialogColumnsNumber);
-
         mReactAlertDialog.show();
         if (mOnReactionDialogStateListener != null) mOnReactionDialogStateListener.onDialogOpened();
 
-        int iconFullSize = 55;  // Icon size + icon padding * 2
-        int reactIconSize = (iconFullSize * getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-
-        int dialogWidth = reactIconSize * mDialogColumnsNumber;
+        int dialogWidth = REACTION_ICON_SIZE * mDialogColumnsNumber;
         window.setLayout(dialogWidth, WindowManager.LayoutParams.WRAP_CONTENT);
 
         mReactAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -187,10 +199,10 @@ public class ReactButton
     }
 
     /**
-     * @param shapeId : set xml Shape for react dialog layout
+     * @param drawableShape : set xml Shape for react dialog layout
      */
-    public void setReactionDialogShape(int shapeId) {
-        this.mReactDialogShape = shapeId;
+    public void setReactionDialogShape(@DrawableRes int drawableShape) {
+        this.mReactDialogShape = drawableShape;
     }
 
     /**
