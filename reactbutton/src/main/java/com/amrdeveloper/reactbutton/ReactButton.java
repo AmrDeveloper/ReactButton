@@ -104,19 +104,21 @@ public class ReactButton
         setupReactButtonDefaultSettings();
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        // Handle Screen rotation, should dismiss the dialog
+        if (mReactAlertDialog != null && mReactAlertDialog.isShowing()) mReactAlertDialog.cancel();
+    }
+
     /**
      * Setup default settings for ReactButton Constructors
      * - Set ReactButton Listeners
-     * - Handle device rotation
      */
     private void setupReactButtonDefaultSettings() {
         mReactButton.setOnClickListener(this);
         mReactButton.setOnLongClickListener(this);
-
-        // Cancel dialog when device rotate
-        if (mReactAlertDialog != null && mReactAlertDialog.isShowing()) {
-            mReactAlertDialog.cancel();
-        }
     }
 
     /**
