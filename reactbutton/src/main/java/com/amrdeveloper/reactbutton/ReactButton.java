@@ -66,14 +66,20 @@ public class ReactButton
     private int mDialogColumnsNumber;
 
     /**
+     * The dim amount for the reactions dialog
+     * 0 for no dim to 1 for full dim, default is 0
+     */
+    private float mDialogDimAmount = 0;
+
+    /**
      * Integer variable to change react dialog shape
      * Default value is react_dialog_shape
      */
     private int mReactDialogShape = R.drawable.react_dialog_shape;
 
     /**
-     *  The size of reaction icon in dp
-     *  Icon size + icon padding * 2
+     * The size of reaction icon in dp
+     * Icon size + icon padding * 2
      */
     private static final int ICON_SIZE_WITH_PADDING = 55;
 
@@ -175,6 +181,7 @@ public class ReactButton
 
         Window window = mReactAlertDialog.getWindow();
         window.setBackgroundDrawableResource(mReactDialogShape);
+        window.setDimAmount(mDialogDimAmount);
 
         // Setup dialog gravity and dynamic position
         WindowManager.LayoutParams windowManagerAttributes = window.getAttributes();
@@ -199,14 +206,7 @@ public class ReactButton
     }
 
     /**
-     * @param drawableShape : set xml Shape for react dialog layout
-     */
-    public void setReactionDialogShape(@DrawableRes int drawableShape) {
-        this.mReactDialogShape = drawableShape;
-    }
-
-    /**
-     * @param react : Reaction to update UI by take attribute from it
+     * @param react Reaction to update UI by take attribute from it
      */
     private void updateReactButtonByReaction(Reaction react) {
         mCurrentReaction = react;
@@ -218,7 +218,14 @@ public class ReactButton
     }
 
     /**
-     * @param reactions : Array of six Reactions to update default six Reactions
+     * @param drawableShape set xml Shape for react dialog layout
+     */
+    public void setReactionDialogShape(@DrawableRes int drawableShape) {
+        this.mReactDialogShape = drawableShape;
+    }
+
+    /**
+     * @param reactions Array of six Reactions to update default six Reactions
      */
     public void setReactions(Reaction... reactions) {
         mReactions.addAll(Arrays.asList(reactions));
@@ -226,21 +233,21 @@ public class ReactButton
     }
 
     /**
-     * @param reaction : set This Reaction as current Reaction
+     * @param reaction set This Reaction as current Reaction
      */
     public void setCurrentReaction(Reaction reaction) {
         updateReactButtonByReaction(reaction);
     }
 
     /**
-     * @return : The Current reaction Object
+     * @return The Current reaction Object
      */
     public Reaction getCurrentReaction() {
         return mCurrentReaction;
     }
 
     /**
-     * @param reaction : Update library default Reaction by other Reaction
+     * @param reaction Update library default Reaction by other Reaction
      */
     public void setDefaultReaction(Reaction reaction) {
         mDefaultReaction = reaction;
@@ -249,35 +256,42 @@ public class ReactButton
     }
 
     /**
-     * @return : The current default Reaction object
+     * @return The current default Reaction object
      */
     public Reaction getDefaultReaction() {
         return mDefaultReaction;
     }
 
     /**
-     * @param number: the number of reactions dialog columns
+     * @param number the number of reactions dialog columns
      */
     public void setDialogColumnsNumber(int number) {
         if (number > 0) mDialogColumnsNumber = number;
     }
 
     /**
-     * @param listener : OnReactionChangeListener to listen when user click on ReactButton
+     * @param amount The new dim amount, from 0 for no dim to 1 for full dim.
+     */
+    public void setDimAmount(float amount) {
+        mDialogDimAmount = amount;
+    }
+
+    /**
+     * @param listener OnReactionChangeListener to listen when user click on ReactButton
      */
     public void setOnReactionChangeListener(OnReactionChangeListener listener) {
         mOnReactionChangeListener = listener;
     }
 
     /**
-     * @param listener : OnReactionDialogStateListener to listen when reaction dialog open or closed
+     * @param listener OnReactionDialogStateListener to listen when reaction dialog open or closed
      */
     public void setOnReactionDialogStateListener(OnReactionDialogStateListener listener) {
         mOnReactionDialogStateListener = listener;
     }
 
     /**
-     * @return : true if current reaction type is default
+     * @return true if current reaction type is default
      */
     public boolean isDefaultReaction() {
         return !isReactButtonUpdated;
