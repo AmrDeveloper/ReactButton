@@ -86,6 +86,11 @@ Change the number of reactions in the Columns, the default value is all reaction
 reactButton.setDialogColumnsNumber(n);
 ```
 
+Set the dim amount for the reactions dialog from 0 for no dim to 1 for full dim, the default value is 0
+```java
+reactButton.setDimAmount(dim);
+```
+
 Set setOnReactionChangeListener:
 
 ```java
