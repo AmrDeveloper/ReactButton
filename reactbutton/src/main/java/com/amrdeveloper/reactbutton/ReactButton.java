@@ -89,6 +89,11 @@ public class ReactButton
     private final int REACTION_ICON_SIZE = (ICON_SIZE_WITH_PADDING *
             getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
 
+    /**
+     * The maximum width of the screen in pixels
+     */
+    private final int SCREEN_MAX_WIDTH = getResources().getDisplayMetrics().widthPixels;
+
     public interface OnReactionDialogStateListener {
         void onDialogOpened();
 
@@ -160,9 +165,6 @@ public class ReactButton
         GridView reactionsGrid = dialogView.findViewById(R.id.reactionsList);
         ReactionAdapter adapter = new ReactionAdapter(context, mReactions);
         reactionsGrid.setAdapter(adapter);
-
-        // Setup the columns number
-        if (mDialogColumnsNumber == 0) mDialogColumnsNumber = mReactions.size();
         reactionsGrid.setNumColumns(mDialogColumnsNumber);
 
         reactionsGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -193,6 +195,7 @@ public class ReactButton
         if (mOnReactionDialogStateListener != null) mOnReactionDialogStateListener.onDialogOpened();
 
         int dialogWidth = REACTION_ICON_SIZE * mDialogColumnsNumber;
+        if (dialogWidth > SCREEN_MAX_WIDTH) dialogWidth = SCREEN_MAX_WIDTH;
         window.setLayout(dialogWidth, WindowManager.LayoutParams.WRAP_CONTENT);
 
         mReactAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
