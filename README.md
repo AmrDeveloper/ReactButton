@@ -3,6 +3,7 @@
 ![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
 ![Forks](https://img.shields.io/github/forks/AmrDeveloper/ReactButton.svg)
 ![License](https://img.shields.io/github/license/AmrDeveloper/ReactButton.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3d0f3616d9f544849b2b3190412833ab)](https://app.codacy.com/gh/AmrDeveloper/ReactButton?utm_source=github.com&utm_medium=referral&utm_content=AmrDeveloper/ReactButton&utm_campaign=Badge_Grade_Settings)
 [![](https://jitpack.io/v/AmrDeveloper/ReactButton.svg)](https://jitpack.io/#AmrDeveloper/ReactButton)
 
 Android Library to make it easy to add ReactButton feature in your app with Multi Reactions like Facebook or Linkedin ...etc, you can add many reactions as you want, you can also split them into number of columns, and also customize the colors and text for each reactions
