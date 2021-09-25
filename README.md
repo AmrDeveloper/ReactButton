@@ -1,5 +1,6 @@
 # ReactButton
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3d0f3616d9f544849b2b3190412833ab)](https://app.codacy.com/gh/AmrDeveloper/ReactButton?utm_source=github.com&utm_medium=referral&utm_content=AmrDeveloper/ReactButton&utm_campaign=Badge_Grade_Settings)
+[![CodeFactor](https://www.codefactor.io/repository/github/amrdeveloper/reactbutton/badge)](https://www.codefactor.io/repository/github/amrdeveloper/reactbutton)
 ![Build](https://github.com/amrdeveloper/reactbutton/actions/workflows/build.yml/badge.svg)
 ![Min API](https://img.shields.io/badge/Api-%2B15-red.svg)
 ![Stars](https://img.shields.io/github/stars/AmrDeveloper/ReactButton.svg)
