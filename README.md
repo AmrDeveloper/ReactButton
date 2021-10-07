@@ -16,7 +16,7 @@ Android Library to make it easy to add ReactButton feature in your app with Mult
 #### Demo :smile:
 
 <p align="center">
-<img src="/screenshots/facebook_reacts_demo.gif" height="400px" width="22%"> <img src="/screenshots/dc_reacts_demo.gif" height="400px" width="22%"> <img src="/screenshots/facebook_reacts_2c.png" height="400px" width="22%"> <img src="/screenshots/facebook_reacts_3c.png" height="400px" width="22%">
+<img src="/screenshots/facebook_reacts_demo.gif" height="350px" width="19%"> <img src="/screenshots/dc_reacts_demo.gif" height="350px" width="19%"> <img src="/screenshots/facebook_reacts_portal.png" height="350px" width="19%"> <img src="/screenshots/facebook_reacts_2c.png" height="350px" width="19%"> <img src="/screenshots/facebook_reacts_3c.png" height="350px" width="19%">
 </p>
   
 <p align="center">
