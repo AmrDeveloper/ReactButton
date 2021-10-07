@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         final ReactButton reactButton = findViewById(R.id.reactButton);
         reactButton.setReactions(FbReactions.reactions);
         reactButton.setDefaultReaction(FbReactions.defaultReact);
+        reactButton.setEnableReactionTooltip(true);
 
         reactButton.setOnReactionChangeListener(new ReactButton.OnReactionChangeListener() {
             @Override
