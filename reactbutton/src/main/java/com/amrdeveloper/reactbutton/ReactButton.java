@@ -11,13 +11,18 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 
 import java.util.ArrayList;
@@ -78,10 +83,41 @@ public class ReactButton
     private int mReactDialogShape = R.drawable.react_dialog_shape;
 
     /**
+     * Enable/Disable the reactions tooltip feature
+     */
+    private boolean enableReactionTooltip = false;
+
+    /**
+     * The offset between tooltip and the reaction icon
+     */
+    private int mTooltipOffsetFromReaction = 100;
+
+    /**
+     * The default color for React tooltip text
+     */
+    @ColorInt private int mReactTooltipTextColor = Color.WHITE;
+
+    /**
+     * The default drawable shape for tooltip text
+     */
+    @DrawableRes private int mReactTooltipShape = R.drawable.react_tooltip_shape;
+
+    /**
+     * The min height of tooltip
+     */
+    private static final int TOOLTIP_VIEW_MIN_HEIGHT = 50;
+
+    /**
+     * Reaction image view padding
+     */
+    private static final int ICON_PADDING = 10;
+
+    /**
      * The size of reaction icon in dp
      * Icon size + icon padding * 2
      */
-    private static final int ICON_SIZE_WITH_PADDING = 55;
+    private static final int ICON_SIZE_WITH_PADDING = 45 + ICON_PADDING;
+
 
     /**
      * Full reaction icon size converted from dp
@@ -176,6 +212,49 @@ public class ReactButton
             }
         });
 
+        if (enableReactionTooltip) {
+            final PopupWindow[] popupWindow = new PopupWindow[1];
+            reactionsGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Reaction currentReaction = mReactions.get(position);
+
+                    View tooltipView = LayoutInflater.from(context).inflate(R.layout.react_tooltip_layout, null);
+                    tooltipView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    tooltipView.setBackgroundResource(mReactTooltipShape);
+
+                    TextView tooltipTextView = tooltipView.findViewById(R.id.react_tooltip_text);
+                    tooltipTextView.setTextColor(mReactTooltipTextColor);
+                    tooltipTextView.setText(currentReaction.getReactText());
+
+                    popupWindow[0] = new PopupWindow(tooltipView, tooltipView.getMeasuredWidth(), tooltipView.getMeasuredHeight(), true);
+                    popupWindow[0].setOutsideTouchable(true);
+
+                    final int[] viewLocation = new int[2];
+                    view.getLocationOnScreen(viewLocation);
+                    float xOffset = viewLocation[0];
+                    float yOffset = viewLocation[1] - mTooltipOffsetFromReaction;
+
+                    if (yOffset <= TOOLTIP_VIEW_MIN_HEIGHT) yOffset += mTooltipOffsetFromReaction * 2 + TOOLTIP_VIEW_MIN_HEIGHT;
+
+                    popupWindow[0].showAtLocation(tooltipView, Gravity.NO_GRAVITY, (int) xOffset, (int) yOffset);
+                    return false;
+                }
+            });
+
+            reactionsGrid.setOnTouchListener(new OnTouchListener() {
+
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                       if (popupWindow[0] != null) popupWindow[0].dismiss();
+                    }
+                    return false;
+                }
+            });
+        }
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         dialogBuilder.setView(dialogView);
         mReactAlertDialog = dialogBuilder.create();
@@ -225,6 +304,34 @@ public class ReactButton
      */
     public void setReactionDialogShape(@DrawableRes int drawableShape) {
         this.mReactDialogShape = drawableShape;
+    }
+
+    /**
+     * @param offset from the reaction icon
+     */
+    public void setTooltipOffsetFromReaction(int offset) {
+        mTooltipOffsetFromReaction = offset;
+    }
+
+    /**
+     * @param color tooltip text color
+     */
+    public void setReactionTooltipTextColor(@ColorInt int color) {
+        mReactTooltipTextColor = color;
+    }
+
+    /**
+     * @param drawableShape tooltip shape for the layout
+     */
+    public void setReactionTooltipShape(@DrawableRes int drawableShape) {
+        mReactTooltipShape = drawableShape;
+    }
+
+    /**
+     * @param isEnable enable/disable the reactions tooltip feature
+     */
+    public void setEnableReactionTooltip(boolean isEnable) {
+        enableReactionTooltip = isEnable;
     }
 
     /**
