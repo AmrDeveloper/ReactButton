@@ -94,6 +94,26 @@ Set the dim amount for the reactions dialog from 0 for no dim to 1 for full dim,
 reactButton.setDimAmount(dim);
 ```
 
+Change tooltip background shape
+```java
+reactButton.setReactionTooltipShape(R.drawable.shape);
+```
+
+Change tooltip text color
+```java
+reactButton.setReactionTooltipTextColor(Color.BLACK);
+```
+
+Change offset between the reaction icon and the tooltip text
+```java
+reactButton.setTooltipOffsetFromReaction(100);
+```
+
+Enable or Disable the Reaction tooltip feature
+```java
+reactButton.setEnableReactionTooltip(true);
+```
+
 Set setOnReactionChangeListener:
 
 ```java
