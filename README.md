@@ -40,7 +40,7 @@ allprojects {
 Add the dependency      
 
 ```gradle
-implementation 'com.github.AmrDeveloper:ReactButton:2.0.1'
+implementation 'com.github.AmrDeveloper:ReactButton:2.0.3'
 ```
 
 How To Initializing ReactButton:
