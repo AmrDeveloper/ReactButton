@@ -7,6 +7,7 @@
 ![Forks](https://img.shields.io/github/forks/AmrDeveloper/ReactButton.svg)
 ![License](https://img.shields.io/github/license/AmrDeveloper/ReactButton.svg)
 [![](https://jitpack.io/v/AmrDeveloper/ReactButton.svg)](https://jitpack.io/#AmrDeveloper/ReactButton)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.amrdeveloper/reactbutton?color=green)
 
 Android Library to make it easy to add ReactButton feature in your app with Multi Reactions like Facebook or Linkedin ...etc, you can add many reactions as you want, you can also split them into number of columns, and also customize the colors and text for each reactions
 
@@ -27,21 +28,29 @@ Android Library to make it easy to add ReactButton feature in your app with Mult
 
 Add ReactButton To Your Current Project:
 
-Add it in your root build.gradle at the end of repositories
-  
+From Maven Central
 ```gradle
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
+implementation 'io.github.amrdeveloper:reactbutton:2.0.3'
+```
+<details>
+  <summary>Or Add ReactButton from Jitpack.io</summary>
+  
+  Add it in your root build.gradle at the end of repositories
+  
+  ```gradle
+  allprojects {
+      repositories {
+           maven { url 'https://jitpack.io' }
+      }
+  }
 ```
              
-Add the dependency      
+  Add the dependency      
 
-```gradle
-implementation 'com.github.AmrDeveloper:ReactButton:2.0.3'
-```
+  ```gradle
+  implementation 'com.github.AmrDeveloper:ReactButton:2.0.3'
+  ```
+</details>
 
 How To Initializing ReactButton:
 
