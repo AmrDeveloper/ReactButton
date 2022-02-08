@@ -64,6 +64,12 @@ Set your Reactions:
 reactButton.setReactions(Reaction... reaction);
 ```
 
+Add new Reactions to the reactions list:
+
+```java
+reactButton.addReactions(Reaction... reaction);
+```
+
 Set Current Reaction:
 
 ```java
