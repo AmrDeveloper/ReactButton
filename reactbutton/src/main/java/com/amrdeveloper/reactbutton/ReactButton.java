@@ -335,11 +335,22 @@ public class ReactButton
     }
 
     /**
-     * @param reactions Array of six Reactions to update default six Reactions
+     * Set the reactions list to new reactions
+     * @param reactions Array of Reactions
      */
     public void setReactions(Reaction... reactions) {
+        mReactions.clear();
+        addReactions(reactions);
+    }
+
+    /**
+     * Append new reactions to the current reactions list
+     * @param reactions Array of Reactions
+     */
+    public void addReactions(Reaction... reactions) {
         mReactions.addAll(Arrays.asList(reactions));
-        if (mDialogColumnsNumber == 0) mDialogColumnsNumber = mReactions.size();
+        if (mDialogColumnsNumber == 0)
+            mDialogColumnsNumber = mReactions.size();
     }
 
     /**
