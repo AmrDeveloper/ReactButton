@@ -99,6 +99,16 @@ Change Reaction dialog default Style:
 reactButton.setReactDialogShape(int styleID);
 ``` 
 
+Change the reactions dialog default gravity, make sure you have disabled the dynamic position
+```java
+reactButton.setReactionDialogGravity(newGravity);
+```
+
+Enable/Disable the reactions dialog dynamic position
+```java
+reactButton.enableDialogDynamicPosition(isEnabled);
+```
+
 Change the number of reactions in the Columns, the default value is all reactions size
 ```java
 reactButton.setDialogColumnsNumber(n);
