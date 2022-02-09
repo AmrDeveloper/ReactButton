@@ -1,3 +1,27 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2018 AmrDeveloper (Amr Hesham)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.amrdeveloper.reactbutton;
 
 import android.annotation.SuppressLint;
@@ -30,6 +54,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * ReactButton custom class based on Button View
+ *
+ * Provide like and unlike feature depend on use single click
+ * and reactions dialog feature when user provide long click event
+ */
 @SuppressLint("AppCompatCustomView")
 public class ReactButton
         extends Button
@@ -118,7 +148,6 @@ public class ReactButton
      * Icon size + icon padding * 2
      */
     private static final int ICON_SIZE_WITH_PADDING = 45 + ICON_PADDING;
-
 
     /**
      * Full reaction icon size converted from dp
@@ -309,35 +338,40 @@ public class ReactButton
     }
 
     /**
-     * @param drawableShape set xml Shape for react dialog layout
+     * Modify the reactions dialog layout shape
+     * @param drawableShape the new xml shape
      */
     public void setReactionDialogShape(@DrawableRes int drawableShape) {
         this.mReactDialogShape = drawableShape;
     }
 
     /**
-     * @param offset from the reaction icon
+     * Modify the tooltip offset from the reaction icon
+     * @param offset the new tooltip offset value
      */
     public void setTooltipOffsetFromReaction(int offset) {
         mTooltipOffsetFromReaction = offset;
     }
 
     /**
-     * @param color tooltip text color
+     * Modify the tooltip text color
+     * @param color the new text color value
      */
     public void setReactionTooltipTextColor(@ColorInt int color) {
         mReactTooltipTextColor = color;
     }
 
     /**
-     * @param drawableShape tooltip shape for the layout
+     * Modify the tooltip layout shape
+     * @param drawableShape the new xml shape
      */
     public void setReactionTooltipShape(@DrawableRes int drawableShape) {
         mReactTooltipShape = drawableShape;
     }
 
     /**
-     * @param isEnable enable/disable the reactions tooltip feature
+     * Enable or disable the reactions tooltip feature
+     * @param isEnable True to enable reactions tooltip feature
      */
     public void setEnableReactionTooltip(boolean isEnable) {
         enableReactionTooltip = isEnable;
@@ -355,6 +389,7 @@ public class ReactButton
     /**
      * Append new reactions to the current reactions list
      * @param reactions Array of Reactions
+     * @since 2.1.0
      */
     public void addReactions(Reaction... reactions) {
         mReactions.addAll(Arrays.asList(reactions));
@@ -363,21 +398,24 @@ public class ReactButton
     }
 
     /**
-     * @param reaction set This Reaction as current Reaction
+     * Modify the current reactions with new one
+     * @param reaction new reactions to set as a current reaction
      */
     public void setCurrentReaction(Reaction reaction) {
         updateReactButtonByReaction(reaction);
     }
 
     /**
-     * @return The Current reaction Object
+     * Return the current reaction object
+     * @return The Current reaction
      */
     public Reaction getCurrentReaction() {
         return mCurrentReaction;
     }
 
     /**
-     * @param reaction Update library default Reaction by other Reaction
+     * Update the default Reaction by other Reaction
+     * @param reaction the new reaction be to set as a default reaction
      */
     public void setDefaultReaction(Reaction reaction) {
         mDefaultReaction = reaction;
@@ -386,20 +424,23 @@ public class ReactButton
     }
 
     /**
-     * @return The current default Reaction object
+     * Return the default reaction object
+     * @return The default Reaction
      */
     public Reaction getDefaultReaction() {
         return mDefaultReaction;
     }
 
     /**
-     * @param number the number of reactions dialog columns
+     * Modify the columns number for the reactions dialog
+     * @param number the new columns number valud
      */
     public void setDialogColumnsNumber(int number) {
         if (number > 0) mDialogColumnsNumber = number;
     }
 
     /**
+     * Modify the reactions dialog dim amount value
      * @param amount The new dim amount, from 0 for no dim to 1 for full dim.
      */
     public void setDimAmount(float amount) {
