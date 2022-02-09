@@ -3,7 +3,7 @@ apply plugin: 'signing'
 
 ext {
     PUBLISH_GROUP_ID = 'io.github.amrdeveloper'
-    PUBLISH_VERSION = '2.0.3'
+    PUBLISH_VERSION = '2.1.0'
     PUBLISH_ARTIFACT_ID = 'reactbutton'
 }
 

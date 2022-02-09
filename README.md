@@ -30,7 +30,7 @@ Add ReactButton To Your Current Project:
 
 From Maven Central
 ```gradle
-implementation 'io.github.amrdeveloper:reactbutton:2.0.3'
+implementation 'io.github.amrdeveloper:reactbutton:2.1.0'
 ```
 <details>
   <summary>Or Add ReactButton from Jitpack.io</summary>
@@ -48,7 +48,7 @@ implementation 'io.github.amrdeveloper:reactbutton:2.0.3'
   Add the dependency      
 
   ```gradle
-  implementation 'com.github.AmrDeveloper:ReactButton:2.0.3'
+  implementation 'com.github.AmrDeveloper:ReactButton:2.1.0'
   ```
 </details>
 
