@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 2.1.0 *(2022-02-09)*
+-----------------------------
+
+* Improve the dialog dynamic position implementation and make it work on Jetpack Compose
+* Add `enableDialogDynamicPosition` method to enable or disable the dialog dynamic position
+* Add `setReactionDialogGravity` method to change the default gravity
+
 Version 2.0.3 *(2021-11-07)*
 -----------------------------
 
