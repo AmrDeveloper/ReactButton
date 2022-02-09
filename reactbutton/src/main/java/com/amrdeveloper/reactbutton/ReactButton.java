@@ -114,6 +114,16 @@ public class ReactButton
     private int mReactDialogShape = R.drawable.react_dialog_shape;
 
     /**
+     * The current gravity for the reactions dialog
+     */
+    private int currentDialogGravity = Gravity.TOP | Gravity.START;
+
+    /**
+     *  Enable/Disable showing the reactions dialog in relative position to the react button
+     */
+    private boolean enableDialogDynamicPosition = true;
+
+    /**
      * Enable/Disable the reactions tooltip feature
      */
     private boolean enableReactionTooltip = false;
@@ -296,18 +306,21 @@ public class ReactButton
 
         // Setup dialog gravity and dynamic position
         WindowManager.LayoutParams windowManagerAttributes = window.getAttributes();
-        windowManagerAttributes.gravity = Gravity.TOP | Gravity.START;
+        windowManagerAttributes.gravity = currentDialogGravity;
 
         int dialogWidth = REACTION_ICON_SIZE * mDialogColumnsNumber;
         if (dialogWidth > SCREEN_MAX_WIDTH) dialogWidth = SCREEN_MAX_WIDTH;
 
-        final Rect react = new Rect();
-        getGlobalVisibleRect(react);
+        if (enableDialogDynamicPosition) {
+            // Calculate the x and y positions only if the flag is enable
+            final Rect react = new Rect();
+            getGlobalVisibleRect(react);
 
-        // Can be optimized and calculated once and modified only when size changed
-        // Calculate x and y from global visible position to work also in Jetpack Compose
-        windowManagerAttributes.x = react.left + react.width() / 2 - dialogWidth / 2;
-        windowManagerAttributes.y = react.top - react.height() * 2;
+            // Can be optimized and calculated once and modified only when size changed
+            // Calculate x and y from global visible position to work also in Jetpack Compose
+            windowManagerAttributes.x = react.left + react.width() / 2 - dialogWidth / 2;
+            windowManagerAttributes.y = react.top - react.height() * 2;
+        }
 
         mReactAlertDialog.show();
 
@@ -343,6 +356,24 @@ public class ReactButton
      */
     public void setReactionDialogShape(@DrawableRes int drawableShape) {
         this.mReactDialogShape = drawableShape;
+    }
+
+    /**
+     * Modify the reactions dialog gravity value, by default it Top | Start
+     * @param gravity the new gravity
+     * @since 2.1.0
+     */
+    public void setReactionDialogGravity(int gravity) {
+        currentDialogGravity = gravity;
+    }
+
+    /**
+     * Enable/Disable the reactions dialog dynamic position
+     * @param enable True to enable the relative position
+     * @since 2.1.0
+     */
+    public void enableReactionDialogDynamicPosition(boolean enable) {
+        enableDialogDynamicPosition = enable;
     }
 
     /**
