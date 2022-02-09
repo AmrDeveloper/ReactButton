@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -267,14 +268,22 @@ public class ReactButton
         // Setup dialog gravity and dynamic position
         WindowManager.LayoutParams windowManagerAttributes = window.getAttributes();
         windowManagerAttributes.gravity = Gravity.TOP | Gravity.START;
-        windowManagerAttributes.x = (int) getX() + (getWidth() / 2);
-        windowManagerAttributes.y = (int) getY() + (getHeight() / 2);
-
-        mReactAlertDialog.show();
-        if (mOnReactionDialogStateListener != null) mOnReactionDialogStateListener.onDialogOpened();
 
         int dialogWidth = REACTION_ICON_SIZE * mDialogColumnsNumber;
         if (dialogWidth > SCREEN_MAX_WIDTH) dialogWidth = SCREEN_MAX_WIDTH;
+
+        final Rect react = new Rect();
+        getGlobalVisibleRect(react);
+
+        // Can be optimized and calculated once and modified only when size changed
+        // Calculate x and y from global visible position to work also in Jetpack Compose
+        windowManagerAttributes.x = react.left + react.width() / 2 - dialogWidth / 2;
+        windowManagerAttributes.y = react.top - react.height() * 2;
+
+        mReactAlertDialog.show();
+
+        if (mOnReactionDialogStateListener != null) mOnReactionDialogStateListener.onDialogOpened();
+
         window.setLayout(dialogWidth, WindowManager.LayoutParams.WRAP_CONTENT);
 
         mReactAlertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
